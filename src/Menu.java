@@ -50,7 +50,13 @@ public class Menu {
 
     public void viewAuctionItems(){
         for (int i = 0; i < auctionItemList.size(); i++) {
-            System.out.println( auctionItemList.get(i));
+            System.out.print(i+1 + ")" );
+            auctionItemList.get(i).printItemInfo();
         }
+    }
+
+    public void removeAuctionItem(){
+        System.out.println("The following items will be listed for auction: ");
+
     }
 }
