@@ -2,9 +2,11 @@ public class Collectable implements AuctionItem{
     private String description;
     private String condition;
 
-    public Collectable(String description, String condition){
+    private String type;
+    public Collectable(String description, String condition, String type){
         this.description = description;
         this.condition = condition;
+        this.type = type;
     }
 
     public String getDescription(){
@@ -16,7 +18,12 @@ public class Collectable implements AuctionItem{
     }
 
     @Override
+    public String getType(){
+        return type;
+    }
+
+    @Override
     public void printItemInfo() {
-        System.out.println("Description: " + description + "\nCondition: " + condition);
+        System.out.println( type +"Description: " + description + "\nCondition: " + condition);
     }
 }

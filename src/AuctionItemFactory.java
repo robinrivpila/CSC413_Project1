@@ -16,7 +16,7 @@ public class AuctionItemFactory {
                     int year = scan.nextInt();
                     System.out.println("Miles travelled (odometer): ");
                     int milesTravelled = scan.nextInt();
-                    Car newCar = new Car(make, model,year, milesTravelled);
+                    Car newCar = new Car(make, model,year, milesTravelled, type);
                     newCar.printItemInfo();
                     return newCar;
                 case "coin":
@@ -26,14 +26,14 @@ public class AuctionItemFactory {
                     String grade = scan.nextLine();
                     System.out.println("Year: ");
                     year = scan.nextInt();
-                    Coin newCoin = new Coin(description, grade, year);
+                    Coin newCoin = new Coin(description, grade, year, type);
                     return newCoin;
                 case "collectable":
                     System.out.println("Description: ");
                     description = scan.nextLine();
                     System.out.println("Condition: " );
                     String condition = scan.nextLine();
-                    Collectable newCollectable = new Collectable(description, condition);
+                    Collectable newCollectable = new Collectable(description, condition, type);
                     return newCollectable;
                 case "book":
                     System.out.println("Title: ");
@@ -47,7 +47,7 @@ public class AuctionItemFactory {
                     Book newBook = new Book(title, author, yearPublished, condition);
                     return newBook;
                 default:
-                    return new Collectable("something", "good");
+                    return new Collectable("something", "good", "book" );
             }
         }
 }

@@ -4,11 +4,14 @@ public class Car implements AuctionItem{
     private int year;
     private int milesTravelled;
 
-    public Car(String make, String model, int year, int milesTravelled){
+    private String type;
+
+    public Car(String make, String model, int year, int milesTravelled, String type){
         this.make = make;
         this.model = model;
         this.year = year;
         this.milesTravelled = milesTravelled;
+        this.type = type;
     }
 
     public Car(){
@@ -32,14 +35,15 @@ public class Car implements AuctionItem{
     }
 
     @Override
-    public void printItemInfo() {
-        System.out.println("\nMake: " + make + "\nModel: " +
-                model + "\nYear: " + year + "\nMiles Travelled: " +milesTravelled);
+    public String getType(){
+        return type;
     }
 
     @Override
-    public String toString(){
-        return "\nMake: " + make + "\nModel: " +
-                model + "\nYear: " + year + "\nMiles Travelled: " +milesTravelled;
+    public void printItemInfo() {
+        System.out.println(type +"\nMake: " + make + "\nModel: " +
+                model + "\nYear: " + year + "\nMiles Travelled: " +milesTravelled);
     }
+
+
 }

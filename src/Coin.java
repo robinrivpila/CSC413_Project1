@@ -2,10 +2,14 @@ public class Coin implements AuctionItem{
     private String description;
     private String grade;
     private int year;
-    public Coin(String description, String grade, int year){
+
+    private String type;
+    public Coin(String description, String grade, int year, String type){
         this.description = description;
         this.grade = grade;
         this.year = year;
+        this.type = type;
+
     }
 
     public String getDescription(){
@@ -21,8 +25,13 @@ public class Coin implements AuctionItem{
     }
 
     @Override
+    public String getType(){
+        return type;
+    }
+
+    @Override
     public void printItemInfo() {
-        System.out.println("Description: " + description + "\nGrade: " + grade +
+        System.out.println(type + "\nDescription: " + description + "\nGrade: " + grade +
                 "\nYear: " + year);
 
     }

@@ -29,6 +29,7 @@ public class Menu {
                     viewAuctionItems();
                     break;
                 case 3:
+                    removeAuctionItem();
                     break;
                 case 4:
                     break;
@@ -36,7 +37,7 @@ public class Menu {
                     isInUse = false;
                     break;
             }
-            System.out.println( "List Size: " + auctionItemList.size());
+
         }
     }
 
@@ -57,6 +58,10 @@ public class Menu {
 
     public void removeAuctionItem(){
         System.out.println("The following items will be listed for auction: ");
-
+        viewAuctionItems();
+        System.out.println("Which item would you like to remove? ");
+        int itemToRemove = scan.nextInt();
+        auctionItemList.remove(itemToRemove-1);
+        viewAuctionItems();
     }
 }
