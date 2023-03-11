@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +35,11 @@ public class Menu {
                     removeAuctionItem();
                     break;
                 case 4:
+                    try {
+                        saveAsCSV();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 5:
                     isInUse = false;
@@ -63,5 +71,28 @@ public class Menu {
         int itemToRemove = scan.nextInt();
         auctionItemList.remove(itemToRemove-1);
         viewAuctionItems();
+    }
+
+    public void saveAsCSV() throws FileNotFoundException {
+        File csvFile = new File("auctionItem.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+
+        for(AuctionItem auctionItem: auctionItemList){
+            if(auctionItem instanceof Car){
+                Car carAuctionItem = (Car)auctionItem;
+                out.printf( "%s, %s, %d, %d\n" , carAuctionItem.getMake(), carAuctionItem.getModel(), carAuctionItem.getYear(), carAuctionItem.getMilesTravelled());
+            } else if(auctionItem instanceof Coin){
+                Coin coinAuctionItem = (Coin) auctionItem;
+                out.printf("%s, %s, %d\n", coinAuctionItem.getDescription(), coinAuctionItem.getGrade(), coinAuctionItem.getYear());
+            } else if(auctionItem instanceof Collectable){
+                Collectable collectableAuctionItem = (Collectable) auctionItem;
+                out.printf("%s, %s\n",collectableAuctionItem.getDescription(), collectableAuctionItem.getCondition());
+            }else{
+                Book bookAuctionItem = (Book) auctionItem;
+                out.printf("%s, %s, %d, %s\n", bookAuctionItem.getTitle(), bookAuctionItem.getAuthor(), bookAuctionItem.getYearPublished(), bookAuctionItem.getCondition());
+            }
+        }
+
+        out.close();
     }
 }
