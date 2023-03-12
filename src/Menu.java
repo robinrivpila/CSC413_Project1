@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
@@ -53,7 +54,7 @@ public class Menu {
         AuctionItemFactory factory = new AuctionItemFactory();
         System.out.println("What kind of item would you like to add? (car, coin, collectable, or book):");
         String auctionType = scan.next();
-        AuctionItem newItem= factory.createAuctionItem(auctionType);
+        AuctionItem newItem= factory.createAuctionItem(auctionType.toLowerCase(Locale.ROOT));
         auctionItemList.add(newItem);
     }
 
@@ -76,20 +77,22 @@ public class Menu {
     public void saveAsCSV() throws FileNotFoundException {
         File csvFile = new File("auctionItem.csv");
         PrintWriter out = new PrintWriter(csvFile);
-
+        out.println("car-make, car-model, car-year, car-miles-travelled, " +
+                " coin-description, coin-grade, coin-year, collectable-description, collectable-condition, " +
+                "book-title, book-author, book-year-published, book-condition");
         for(AuctionItem auctionItem: auctionItemList){
             if(auctionItem instanceof Car){
                 Car carAuctionItem = (Car)auctionItem;
-                out.printf( "%s, %s, %d, %d\n" , carAuctionItem.getMake(), carAuctionItem.getModel(), carAuctionItem.getYear(), carAuctionItem.getMilesTravelled());
+                out.printf( "%s, %s, %d, %d,,,,,,,,,\n" , carAuctionItem.getMake(), carAuctionItem.getModel(), carAuctionItem.getYear(), carAuctionItem.getMilesTravelled());
             } else if(auctionItem instanceof Coin){
                 Coin coinAuctionItem = (Coin) auctionItem;
-                out.printf("%s, %s, %d\n", coinAuctionItem.getDescription(), coinAuctionItem.getGrade(), coinAuctionItem.getYear());
+                out.printf(",,,,%s, %s, %d,,,,,,\n", coinAuctionItem.getDescription(), coinAuctionItem.getGrade(), coinAuctionItem.getYear());
             } else if(auctionItem instanceof Collectable){
                 Collectable collectableAuctionItem = (Collectable) auctionItem;
-                out.printf("%s, %s\n",collectableAuctionItem.getDescription(), collectableAuctionItem.getCondition());
+                out.printf(",,,,,,,%s, %s,,,,\n ",collectableAuctionItem.getDescription(), collectableAuctionItem.getCondition());
             }else{
                 Book bookAuctionItem = (Book) auctionItem;
-                out.printf("%s, %s, %d, %s\n", bookAuctionItem.getTitle(), bookAuctionItem.getAuthor(), bookAuctionItem.getYearPublished(), bookAuctionItem.getCondition());
+                out.printf(",,,,,,,,,%s, %s, %d, %s,\n ", bookAuctionItem.getTitle(), bookAuctionItem.getAuthor(), bookAuctionItem.getYearPublished(), bookAuctionItem.getCondition());
             }
         }
 

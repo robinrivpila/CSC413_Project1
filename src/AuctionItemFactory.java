@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class AuctionItemFactory {
 
-        public static AuctionItem createAuctionItem(String type){
+        public static AuctionItem createAuctionItem (String type){
             Scanner scan = new Scanner(System.in);
                 System.out.println("Please enter the following details for your " + type + ": ");
             switch (type){
@@ -42,9 +42,9 @@ public class AuctionItemFactory {
                     String author = scan.nextLine();
                     System.out.println("Year published: ");
                     int yearPublished = scan.nextInt();
-                    System.out.println("Condition");
-                    condition = scan.nextLine();
-                    Book newBook = new Book(title, author, yearPublished, condition);
+                    System.out.println("Condition: ");
+                    String bookCondition = scan.nextLine();
+                    Book newBook = new Book(title, author, yearPublished, bookCondition, type);
                     return newBook;
                 default:
                     return new Collectable("something", "good", "book" );

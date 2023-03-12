@@ -1,2 +1,7 @@
-toyota, corolla, 1996, 100413
-silver dolalr, high, 1902
+car-make, car-model, car-year, car-miles-travelled,  coin-description, coin-grade, coin-year, collectable-description, collectable-condition, book-title, book-author, book-year-published, book-condition
+toyota, corolla, 1996, 100413,,,,,,,,,
+,,,,silver dollar, high, 1902,,,,,,
+ford, f150, 2012, 83413,,,,,,,,,
+,,,,,,,,,lighting theif, rick riordan, 2012, ,
+ ,,,,,,,starwars collactabel, good,,,,
+ 

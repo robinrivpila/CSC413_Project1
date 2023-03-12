@@ -6,11 +6,12 @@ public class Book implements AuctionItem{
 
     private String type;
 
-    public Book(String title, String author, int yearPublished, String condition){
+    public Book(String title, String author, int yearPublished, String condition, String type){
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
         this.condition = condition;
+        this.type = type;
     }
 
     public String getTitle(){
