@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.security.InvalidParameterException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class Menu {
     public void mainMenu(){
 
         boolean isInUse = true;
-
+        try {
         while (isInUse) {
             System.out.println("Select an option: ");
             System.out.println("1)Add a new item for auction");
@@ -23,39 +24,49 @@ public class Menu {
             System.out.println("4)Save & Exit");
             System.out.println("5)Exit without saving");
 
-            int userInput = scan.nextInt();
+                int userInput = scan.nextInt();
 
-            switch (userInput) {
-                case 1:
-                    addAuctionItem();
-                    break;
-                case 2:
-                    viewAuctionItems();
-                    break;
-                case 3:
-                    removeAuctionItem();
-                    break;
-                case 4:
-                    try {
-                        saveAsCSV();
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case 5:
-                    isInUse = false;
-                    break;
-            }
+                switch (userInput) {
+                    case 1:
+                        addAuctionItem();
+                        break;
+                    case 2:
+                        viewAuctionItems();
+                        break;
+                    case 3:
+                        removeAuctionItem();
+                        break;
+                    case 4:
+                        try {
+                            saveAsCSV();
+                            System.out.println("Saving to auctionItems.csv");
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                        break;
+                    case 5:
+                        isInUse = false;
+                        break;
+                }
+
+        }
+        }catch(Exception e){
+            System.out.println("Invalid Input");
 
         }
     }
 
     public void addAuctionItem(){
         AuctionItemFactory factory = new AuctionItemFactory();
-        System.out.println("What kind of item would you like to add? (car, coin, collectable, or book):");
-        String auctionType = scan.next();
-        AuctionItem newItem= factory.createAuctionItem(auctionType.toLowerCase(Locale.ROOT));
-        auctionItemList.add(newItem);
+        try {
+            System.out.println("What kind of item would you like to add? (car, coin, collectable, or book):");
+            String auctionType = scan.next();
+            AuctionItem newItem = factory.createAuctionItem(auctionType.toLowerCase(Locale.ROOT));
+            auctionItemList.add(newItem);
+        }catch(Exception e){
+            System.out.println("Invalid object was entered.");
+            e.getMessage();
+        }
     }
 
     public void viewAuctionItems(){
@@ -68,9 +79,13 @@ public class Menu {
     public void removeAuctionItem(){
         System.out.println("The following items will be listed for auction: ");
         viewAuctionItems();
-        System.out.println("Which item would you like to remove? ");
-        int itemToRemove = scan.nextInt();
-        auctionItemList.remove(itemToRemove-1);
+        try {
+            System.out.println("Which item would you like to remove? ");
+            int itemToRemove = scan.nextInt();
+            auctionItemList.remove(itemToRemove - 1);
+        }catch (Exception e){
+            System.out.println("Item number entered is invalid.");
+        }
         viewAuctionItems();
     }
 
