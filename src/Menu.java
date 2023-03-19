@@ -40,6 +40,7 @@ public class Menu {
                         try {
                             saveAsCSV();
                             System.out.println("Saving to auctionItems.csv");
+                            isInUse = false;
                         } catch (FileNotFoundException e) {
                             throw new RuntimeException(e);
                         }
@@ -77,16 +78,21 @@ public class Menu {
     }
 
     public void removeAuctionItem(){
+        if(auctionItemList.size() < 1){
+            System.out.println("Currently no auction items in list.");
+            return;
+        }
         System.out.println("The following items will be listed for auction: ");
         viewAuctionItems();
         try {
             System.out.println("Which item would you like to remove? ");
             int itemToRemove = scan.nextInt();
             auctionItemList.remove(itemToRemove - 1);
+            System.out.println("Removing item " + (itemToRemove) + "..." );
         }catch (Exception e){
             System.out.println("Item number entered is invalid.");
         }
-        viewAuctionItems();
+
     }
 
     public void saveAsCSV() throws FileNotFoundException {
